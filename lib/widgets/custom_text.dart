@@ -8,6 +8,7 @@ class CustomText extends StatelessWidget {
   final TextAlign aligment;
   final double height;
   final TextDecoration decoration;
+  final TextOverflow overflow;
 
   CustomText({
     this.fontWeight = FontWeight.normal,
@@ -17,6 +18,7 @@ class CustomText extends StatelessWidget {
     this.aligment,
     this.height = 1,
     this.decoration,
+    this.overflow,
   });
 
   @override
@@ -24,6 +26,7 @@ class CustomText extends StatelessWidget {
     return Container(
       child: Text(
         text,
+        overflow: overflow,
         textAlign: aligment,
         style: TextStyle(
           fontSize: size,

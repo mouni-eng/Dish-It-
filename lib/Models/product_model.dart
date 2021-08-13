@@ -3,20 +3,28 @@ import 'package:flutter/material.dart';
 class Product {
   int id;
   String title, description;
-  List<dynamic> images;
-  List<dynamic> colors;
+  List<String> images;
   bool isPopular;
-  double rating, price;
+  String rating, price;
+  bool isFavourite;
+  String vendor;
+  String logo;
+  String deleiveryTime;
+  String deleivery;
 
   Product({
     @required this.id,
-    @required this.images,
-    @required this.colors,
-    this.rating = 0.0,
+    this.rating = "0.0",
     @required this.title,
     @required this.price,
     @required this.description,
     this.isPopular = false,
+    this.images,
+    this.isFavourite,
+    this.deleivery,
+    this.vendor,
+    this.deleiveryTime,
+    this.logo,
   });
 
   Product.fromJason(Map<dynamic, dynamic> map) {
@@ -25,11 +33,29 @@ class Product {
     }
     id = map['id'];
     title = map['title'];
-    images = List.generate(3, (index) => map['colors'][index]);
+    images = List.generate(3, (index) => map['images'][index]);
     price = map['price'];
     isPopular = map['isPopular'];
-    colors = List.generate(3, (index) => int.parse("${map['images'][index]}"));
     description = map['description'];
     rating = map['rating'];
+    deleivery = map['deleivery'];
+    vendor = map['vendor'];
+    deleiveryTime = map['deleiveryTime'];
+    logo = map['logo'];
+  }
+
+  tojson() {
+    return {
+      'id': id,
+      'title': title,
+      'images': images[0],
+      'price': price,
+      'rating': rating,
+      'description': description,
+      'vendor': vendor,
+      'logo': logo,
+      'deleiveryTime': deleiveryTime,
+      'deleivery': deleivery,
+    };
   }
 }

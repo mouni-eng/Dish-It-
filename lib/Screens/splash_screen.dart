@@ -1,6 +1,7 @@
 import 'package:final_project2/Screens/sign_in_screen.dart';
 import 'package:final_project2/constants.dart';
 import 'package:final_project2/size_config.dart';
+import 'package:final_project2/view_models/auth_view_model.dart';
 import 'package:final_project2/view_models/splash_view_model.dart';
 import 'package:final_project2/widgets/custom_button.dart';
 import 'package:final_project2/widgets/splash_page.dart';
@@ -12,10 +13,12 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, String>> splashData = [
-      {"text": "Welcome to Tokoto, Let’s shop!", "image": "assets/images/splash_1.png"},
       {
-        "text":
-            "We help people conect with store \naround United State of America",
+        "text": "Welcome to DISH IT, Let’s shop!",
+        "image": "assets/images/splash_1.png"
+      },
+      {
+        "text": "We help people conect with stor",
         "image": "assets/images/splash_2.png"
       },
       {
@@ -43,6 +46,9 @@ class SplashScreen extends StatelessWidget {
                       image: splashData[index]["image"],
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: getProportionateScreenHeight(40),
                 ),
                 Expanded(
                   flex: 2,

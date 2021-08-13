@@ -8,6 +8,7 @@ import 'package:final_project2/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CartScreen extends StatelessWidget {
   static String id = "cartScreen";
@@ -77,7 +78,10 @@ class CartScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      child: CartCard(cart: cart.cartProductModel[index]),
+                      child: CartCard(
+                        cart: cart.cartProductModel[index],
+                        index: index,
+                      ),
                     ),
                   ),
                 ),
@@ -150,6 +154,16 @@ class CartScreen extends StatelessWidget {
                       child: CustomButton(
                         text: "Check Out",
                         onpressed: () {
+                          if (cart.cartProductModel.length == 0) {
+                            return Fluttertoast.showToast(
+                                msg: "There is no Products in cart",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: kPrimaryColor,
+                                textColor: Colors.white,
+                                fontSize: getProportionateScreenWidth(16));
+                          }
                           Navigator.push(
                               context,
                               MaterialPageRoute(

@@ -11,7 +11,7 @@ class ControlView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Provider.of<AuthViewModel>(context).getcurrentuser() == null
+    return Provider.of<AuthViewModel>(context).checkcurrentuser() == null
         ? SplashScreen()
         : Provider.of<ControlViewModel>(context).currentScreen;
   }

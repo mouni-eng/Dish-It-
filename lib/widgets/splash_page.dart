@@ -15,8 +15,9 @@ class SplashPage extends StatelessWidget {
       children: [
         Spacer(),
         CustomText(
-          text: "TOKOTO",
+          text: "Dish IT",
           fontWeight: FontWeight.bold,
+          height: 1.2,
           size: getProportionateScreenWidth(36),
           color: kPrimaryColor,
         ),
@@ -29,8 +30,8 @@ class SplashPage extends StatelessWidget {
         ),
         Image.asset(
           image,
-          width: getProportionateScreenWidth(265),
-          height: getProportionateScreenHeight(235),
+          width: getProportionateScreenWidth(300),
+          height: getProportionateScreenHeight(280),
         ),
       ],
     );

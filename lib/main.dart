@@ -5,9 +5,10 @@ import 'package:final_project2/view_models/auth_view_model.dart';
 import 'package:final_project2/view_models/cart_view_model.dart';
 import 'package:final_project2/view_models/category_view_model.dart';
 import 'package:final_project2/view_models/control_view_model.dart';
+import 'package:final_project2/view_models/favourite_view_model.dart';
+import 'package:final_project2/view_models/loacation_view_model.dart';
 import 'package:final_project2/view_models/order_view_model.dart';
 import 'package:final_project2/view_models/product_view_model.dart';
-import 'package:final_project2/view_models/profile_view_model.dart';
 import 'package:final_project2/view_models/splash_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +32,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductViewModel()),
         ChangeNotifierProvider(create: (_) => CartViewModel()),
         ChangeNotifierProvider(create: (_) => ControlViewModel()),
-        ChangeNotifierProvider(create: (_) => ProfileViewModel()),
         ChangeNotifierProvider(create: (_) => OrderViewModel()),
+        ChangeNotifierProvider(create: (_) => FavouriteViewModel()),
+        ChangeNotifierProvider(create: (_) => LocationViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

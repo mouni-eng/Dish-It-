@@ -27,7 +27,7 @@ class ControlViewModel extends ChangeNotifier {
         }
       case 2:
         {
-          currentScreen = ChatScreen();
+          currentScreen = OrderScreen();
           break;
         }
       case 3:

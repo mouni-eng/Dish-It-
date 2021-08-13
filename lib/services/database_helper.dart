@@ -21,10 +21,9 @@ class CartDatabase {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute(
-          "CREATE TABLE $tableCart($tableCartName TEXT, $tableCartPic TEXT, $tableCartPrice TEXT, $tableCartid TEXT, $tableCartQuantity INTEGER)");
+          "CREATE TABLE $tableCart($tableCartName TEXT, $tableCartPic TEXT, $tableCartPrice TEXT, $tableCartid TEXT, $tableCartQuantity INTEGER, $vendor TEXT, $logo TEXT, $deleivery TEXT, $deleiveryTime TEXT)");
     });
   }
-
 
   insert(CartModel model) async {
     var dbClient = await database;

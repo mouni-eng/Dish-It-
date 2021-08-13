@@ -5,13 +5,14 @@ import 'package:final_project2/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class OrderSuccess extends StatelessWidget {
-  static String id = "OrderScreen";
+  static String id = "OrderSuccessScreen";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Order Success"),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: EdgeInsets.all(getProportionateScreenWidth(18)),

@@ -1,4 +1,4 @@
-import 'package:final_project2/Screens/loginsucces_screen.dart';
+import 'package:final_project2/Screens/address_screen.dart';
 import 'package:final_project2/size_config.dart';
 import 'package:final_project2/view_models/auth_view_model.dart';
 import 'package:final_project2/widgets/custom_button.dart';
@@ -14,7 +14,7 @@ class CompleteProfile extends StatelessWidget {
   CompleteProfile({this.email, this.userId});
   @override
   Widget build(BuildContext context) {
-    String lastName, firstName, address, phoneNumber;
+    String lastName, firstName, phoneNumber;
     return Consumer<AuthViewModel>(
       builder: (context, auth, child) => Scaffold(
         appBar: AppBar(
@@ -93,7 +93,7 @@ class CompleteProfile extends StatelessWidget {
                             height: getProportionateScreenHeight(20),
                           ),
                           CustomTextFormField(
-                            obscure: true,
+                            obscure: false,
                             labelText: "Phone Number",
                             hintText: "Enter your Phone Number",
                             image: "assets/icons/Phone.svg",
@@ -112,27 +112,6 @@ class CompleteProfile extends StatelessWidget {
                             },
                           ),
                           SizedBox(
-                            height: getProportionateScreenHeight(20),
-                          ),
-                          CustomTextFormField(
-                            obscure: false,
-                            labelText: "Address",
-                            hintText: "Enter your Address",
-                            image: "assets/icons/Location point.svg",
-                            onsaved: (value) {
-                              address= value;
-                            },
-                            onchanged: (value) {
-                              address = value;
-                            },
-                            validate: (value) {
-                              if (value.isEmpty) {
-                                return auth.validatetext("Enter your Address");
-                              }
-                              return null;
-                            },
-                          ),
-                          SizedBox(
                             height: getProportionateScreenHeight(30),
                           ),
                           SizedBox(
@@ -146,21 +125,17 @@ class CompleteProfile extends StatelessWidget {
                                     if (_formKey.currentState.validate()) {
                                       _formKey.currentState.save();
                                       // if all are valid then go to success screen
-                                      try {
-                                        await auth.saveUser(
-                                            userId,
-                                            firstName,
-                                            lastName,
-                                            phoneNumber,
-                                            address,
-                                            email);
-                                        Navigator.pushNamed(
-                                            context, LoginSuccesScreen.id);
-                                      } catch (e) {
-                                        Scaffold.of(context).showSnackBar(
-                                            SnackBar(
-                                                content: Text(e.toString())));
-                                      }
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AddressScreen(
+                                                    firstname: firstName,
+                                                    lastname: lastName,
+                                                    email: email,
+                                                    phoneNumber: phoneNumber,
+                                                    userid: userId,
+                                                  )));
                                     }
                                   }),
                             ),

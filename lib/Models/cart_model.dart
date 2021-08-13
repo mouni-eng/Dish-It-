@@ -4,7 +4,13 @@ class CartModel {
   String price;
   String id;
   int quantity;
-  CartModel({this.name, this.id, this.pic, this.price, this.quantity = 1});
+  String vendor;
+  String logo;
+  String deleiveryTime;
+  String deleivery;
+
+
+  CartModel({this.name, this.id, this.pic, this.price, this.quantity, this.deleivery, this.deleiveryTime, this.logo, this.vendor});
 
   CartModel.fromjson(Map<dynamic, dynamic> map) {
     if (map == null) {
@@ -16,6 +22,10 @@ class CartModel {
     price = map['Price'];
     id = map['id'];
     quantity = map['quantity'];
+    vendor = map['vendor'];
+    logo = map['logo'];
+    deleiveryTime = map['deleiveryTime'];
+    deleivery = map['deleivery'];
   }
 
   tojson() {
@@ -25,6 +35,10 @@ class CartModel {
       'price': price,
       'id': id,
       'quantity': quantity,
+      'vendor': vendor,
+      'logo': logo,
+      'deleiveryTime': deleiveryTime,
+      'deleivery': deleivery,
     };
   }
 }

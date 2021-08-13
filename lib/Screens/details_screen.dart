@@ -4,78 +4,85 @@ import 'package:final_project2/constants.dart';
 import 'package:final_project2/size_config.dart';
 import 'package:final_project2/view_models/cart_view_model.dart';
 import 'package:final_project2/widgets/custom_button.dart';
+import 'package:final_project2/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class DetailsScreen extends StatelessWidget {
   static String id = "DetailsScreen";
   final Product product;
 
-  DetailsScreen({this.product});
+  DetailsScreen({
+    this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF5F6F9),
-      appBar: CustomAppBar(rating: product.rating),
-      body: Builder(
-        builder: (context) =>
-        ListView(
-          children: [
-            ProductImages(product: product),
-            TopRoundedContainer(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  ProductDescription(
-                    product: product,
-                    pressOnSeeMore: () {},
-                  ),
-                  TopRoundedContainer(
-                    color: Color(0xFFF6F7F9),
-                    child: Column(
-                      children: [
-                        ColorDots(product: product),
-                        TopRoundedContainer(
-                          color: Colors.white,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: SizeConfig.screenWidth * 0.15,
-                              right: SizeConfig.screenWidth * 0.15,
-                              bottom: getProportionateScreenWidth(40),
-                              top: getProportionateScreenWidth(15),
-                            ),
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: CustomButton(
-                                text: "Add To Cart",
-                                onpressed: () async {
-                                  await Provider.of<CartViewModel>(context,
-                                          listen: false)
-                                      .addProducts(CartModel(
-                                    name: product.title,
-                                    pic: product.images[0],
-                                    price: product.price.toString(),
-                                    id: product.id.toString(),
-                                    quantity: 1,
-                                  ));
-                                  Scaffold.of(context).showSnackBar(
-                                      SnackBar(content: Text("Product added to cart")));
-                                },
-                                size: getProportionateScreenWidth(18),
-                                radius: 20,
+    return Consumer<CartViewModel>(
+      builder: (context, cart, child) => Scaffold(
+        backgroundColor: Color(0xFFF5F6F9),
+        appBar: CustomAppBar(rating: product.rating),
+        body: Builder(
+          builder: (context) => ListView(
+            children: [
+              ProductImages(product: product),
+              TopRoundedContainer(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    ProductDescription(
+                      product: product,
+                    ),
+                    TopRoundedContainer(
+                      color: Color(0xFFF6F7F9),
+                      child: Column(
+                        children: [
+                          ColorDots(product: product),
+                          TopRoundedContainer(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                left: SizeConfig.screenWidth * 0.15,
+                                right: SizeConfig.screenWidth * 0.15,
+                                bottom: getProportionateScreenWidth(40),
+                                top: getProportionateScreenWidth(15),
+                              ),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: CustomButton(
+                                  text: "Add To Cart",
+                                  onpressed: () async {
+                                    await cart.addProducts(CartModel(
+                                      name: product.title,
+                                      pic: product.images[0],
+                                      price: product.price.toString(),
+                                      id: product.id.toString(),
+                                      quantity: cart.quantaty,
+                                      vendor: product.vendor,
+                                      deleivery: product.deleivery,
+                                      deleiveryTime: product.deleiveryTime,
+                                      logo: product.logo,
+                                    ));
+                                    cart.restQuantaty();
+                                  },
+                                  size: getProportionateScreenWidth(18),
+                                  radius: 20,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -179,11 +186,9 @@ class ProductDescription extends StatelessWidget {
   const ProductDescription({
     Key key,
     @required this.product,
-    this.pressOnSeeMore,
   }) : super(key: key);
 
   final Product product;
-  final GestureTapCallback pressOnSeeMore;
 
   @override
   Widget build(BuildContext context) {
@@ -198,25 +203,6 @@ class ProductDescription extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-            width: getProportionateScreenWidth(64),
-            decoration: BoxDecoration(
-              color: Color(0xFFF5F6F9),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
-              ),
-            ),
-            child: SvgPicture.asset(
-              "assets/icons/Heart Icon_2.svg",
-              color: Color(0xFFDBDEE4),
-              height: getProportionateScreenWidth(16),
-            ),
-          ),
-        ),
         Padding(
           padding: EdgeInsets.only(
             left: getProportionateScreenWidth(20),
@@ -227,30 +213,6 @@ class ProductDescription extends StatelessWidget {
             maxLines: 3,
           ),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(20),
-            vertical: 10,
-          ),
-          child: GestureDetector(
-            onTap: () {},
-            child: Row(
-              children: [
-                Text(
-                  "See More Detail",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: kPrimaryColor),
-                ),
-                SizedBox(width: 5),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: kPrimaryColor,
-                ),
-              ],
-            ),
-          ),
-        )
       ],
     );
   }
@@ -266,32 +228,34 @@ class ColorDots extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Now this is fixed and only for demo
-    int selectedColor = 3;
-    return Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-      child: Row(
-        children: [
-          ...List.generate(
-            product.colors.length,
-            (index) => ColorDot(
-              color: Color(product.colors[index]),
-              isSelected: index == selectedColor,
+    return Consumer<CartViewModel>(
+      builder: (context, cart, child) => Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        child: Row(
+          children: [
+            CustomText(
+              text: cart.quantaty.toString(),
+              color: Colors.black,
+              size: getProportionateScreenWidth(18),
             ),
-          ),
-          Spacer(),
-          RoundedIconBtn(
-            icon: Icons.remove,
-            press: () {},
-          ),
-          SizedBox(width: getProportionateScreenWidth(20)),
-          RoundedIconBtn(
-            icon: Icons.add,
-            showShadow: true,
-            press: () {},
-          ),
-        ],
+            Spacer(),
+            RoundedIconBtn(
+              icon: Icons.remove,
+              press: () {
+                cart.decrease();
+              },
+            ),
+            SizedBox(width: getProportionateScreenWidth(20)),
+            RoundedIconBtn(
+              icon: Icons.add,
+              showShadow: true,
+              press: () {
+                cart.increase();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -370,7 +334,7 @@ class RoundedIconBtn extends StatelessWidget {
 }
 
 class CustomAppBar extends PreferredSize {
-  final double rating;
+  final String rating;
 
   CustomAppBar({@required this.rating});
 

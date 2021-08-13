@@ -22,6 +22,10 @@ final headingStyle = TextStyle(
 
 const defaultDuration = Duration(milliseconds: 250);
 
+// Api Keys
+
+const kGeoKey = "AIzaSyB88NuwcLiATKjLmAtA1mUio3umDvohV1A";
+
 // Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -42,17 +46,20 @@ final String tableCartPrice = "Price";
 final String tableCartPic = "Pic";
 final String tableCartid = "id";
 final String tableCartQuantity = "quantity";
+final String vendor = "vendor";
+final String logo = "logo";
+final String deleiveryTime = "deleiveryTime";
+final String deleivery = "deleivery";
 
-
-final String tableOrder = "OrdersData";
-final String tableOrderPic = "image";
-final String tableOrderprId = "prId";
-final String tableUsername = "name";
-final String tableUserlastName = "lastName";
-final String tableUserphoneNumber = "phoneNumber";
-final String tableUseraddress = "address";
-final String tabletotalPrice = "totalPrice";
-
+final String title = "title";
+final String description = "description";
+final String id = "id";
+final String price = "price";
+final String images = "images";
+final String favTable = "favTable";
+final String isPopular = "isPopular";
+final String rating = "rating";
+final String isFavourite = "isFavourite";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
